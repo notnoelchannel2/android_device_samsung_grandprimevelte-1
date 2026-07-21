@@ -1,4 +1,4 @@
-LOCAL_PATH := device/samsung/grandprimevelte
+LOCAL_PATH := device/samsung/coreprimevelte
 
 TARGET_ARCH := arm
 TARGET_NO_BOOTLOADER := true
@@ -9,12 +9,8 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a7
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
-TARGET_BOOTLOADER_BOARD_NAME := grandprimevelte
+TARGET_BOOTLOADER_BOARD_NAME := coreprimevelte
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
-
-BOARD_KERNEL_CMDLINE := 
-BOARD_KERNEL_BASE := 0x10000000
-BOARD_KERNEL_PAGESIZE := 2048
 
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
@@ -28,8 +24,24 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 
 BOARD_CUSTOM_MKBOOTIMG := $(LOCAL_PATH)/tools/marvell-mkbootimg
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/custom_mkbootimg.mk
-BOARD_MKBOOTIMG_ARGS := --dt $(LOCAL_PATH)/prebuilt/dtb
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/zImage
+# Kernel
+TARGET_KERNEL_SOURCE := kernel/samsung/coreprimevelte
+TARGET_KERNEL_CONFIG := pxa1908_coreprimevelte_eur_defconfig
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+KERNEL_TOOLCHAIN := /opt/toolchains/aarch64-linux-android-4.8/bin
+BOARD_KERNEL_BASE         := 0x10000000
+BOARD_KERNEL_CMDLINE      := 
+BOARD_KERNEL_PAGESIZE     := 2048
+BOARD_KERNEL_SEPARATED_DT := true
+BOARD_KERNEL_IMAGE_NAME   := zImage
+BOARD_DTBTOOL_ARGS        :=
+BOARD_MKBOOTIMG_ARGS      := --unknown 0x3000000 --tags_offset 0x00000100 --seandroidenforce
+BOARD_MKRECOVERYIMG_ARGS  := --unknown 0x3000000 --tags_offset 0x00000100 --seandroidenforce
+BOARD_UBOOT_ARGS          := -A arm64 -O linux -T kernel -C gzip -a 01000000 -e 01000000 -n "pxa1928dkb linux"
+BOARD_UBOOT_IMAGE_NAME    := uImage
+
 
 #twrp
 TW_THEME:= portrait_hdpi

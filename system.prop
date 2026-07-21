@@ -2,7 +2,7 @@
 # system.prop for grandprimevelte
 #
 
-ro.product.model=SM-G531F
+ro.product.model=SM-G361F
 
 # System property for storage_preload
 persist.sys.storage_preload=1
