@@ -31,16 +31,23 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 KERNEL_TOOLCHAIN := /opt/toolchains/aarch64-linux-android-4.8/bin
-BOARD_KERNEL_BASE         := 0x10000000
-BOARD_KERNEL_CMDLINE      := 
-BOARD_KERNEL_PAGESIZE     := 2048
-BOARD_KERNEL_SEPARATED_DT := true
-BOARD_KERNEL_IMAGE_NAME   := Image.gz
-BOARD_DTBTOOL_ARGS        :=
-BOARD_MKBOOTIMG_ARGS      := --unknown 0x3000000 --tags_offset 0x00000100 --seandroidenforce
-BOARD_MKRECOVERYIMG_ARGS  := --unknown 0x3000000 --tags_offset 0x00000100 --seandroidenforce
-BOARD_UBOOT_ARGS          := -A arm64 -O linux -T kernel -C gzip -a 01000000 -e 01000000 -n "pxa1928dkb linux"
-BOARD_UBOOT_IMAGE_NAME    := uImage
+
+# Corrected Offsets for Marvell PXA1908
+BOARD_KERNEL_BASE        := 0x10000000
+BOARD_KERNEL_PAGESIZE    := 2048
+BOARD_RAMDISK_OFFSET     := 0x03000000
+BOARD_TAGS_OFFSET        := 0x00000100
+
+BOARD_KERNEL_CMDLINE     := 
+BOARD_KERNEL_SEPARATED_DT:= true
+BOARD_KERNEL_IMAGE_NAME  := Image.gz
+
+# Cleaned arguments (removed --unknown and raw flags)
+BOARD_MKBOOTIMG_ARGS     := --ramdisk_offset 0x03000000 --tags_offset 0x00000100
+BOARD_MKRECOVERYIMG_ARGS := --ramdisk_offset 0x03000000 --tags_offset 0x00000100
+
+BOARD_UBOOT_ARGS         := -A arm64 -O linux -T kernel -C gzip -a 01000000 -e 01000000 -n "pxa1928dkb linux"
+BOARD_UBOOT_IMAGE_NAME   := uImage
 
 
 #twrp
