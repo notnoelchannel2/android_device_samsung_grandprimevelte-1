@@ -33,6 +33,8 @@ jobs:
           sudo make altinstall
           sudo ln -sf /usr/local/bin/python2.7 /usr/bin/python2
           sudo ln -sf /usr/local/bin/python2.7 /usr/bin/python
+      - name: Installing OpenJDK 7
+        run: |
           sudo apt install java-common libxi6 libxtst6
           wget https://cdn.azul.com/zulu/bin/zulu7.56.0.11-ca-jdk7.0.352-linux_amd64.deb
           sudo dpkg -i zulu7.56.0.11-ca-jdk7.0.352-linux_amd64.deb
